@@ -1,13 +1,20 @@
 <?php
 
-$dbhost = "sql104.infinityfree.com";
-$dbuser = "if0_37000771";
-$dbpass = "EO21KJXUHO2";
-$dbname = "if0_37000771_hr_management";
+// Load environment variables from .env file
+require 'vendor/autoload.php';
 
-$conn = mysqli_connect($dbhost , $dbuser , $dbpass , $dbname);
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
-if(!isset($conn)){
-    echo die("Database connection failed");
+$host = $_ENV['MYSQLHOST'];
+$username = $_ENV['MYSQLUSER'];
+$password = $_ENV['MYSQLPASSWORD'];
+$dbname = $_ENV['MYSQLDATABASE'];
+$port = $_ENV['MYSQLPORT'];
+
+$con = mysqli_connect($host, $username, $password, $dbname, $port);
+
+if (!$con) {
+    die("Database connection failed: " . mysqli_connect_error());
 }
 ?>
